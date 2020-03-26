@@ -1,0 +1,21 @@
+<div class ="container-fluid">
+<!-- 	<div class="row">
+		<div class="col-sm-12">
+			<app-header></app-header>
+		</div>
+	</div>-->
+	
+	<div class="row">
+		<div class="col-sm-12" *ngIf = "screenName === undefined">
+			<app-home></app-home>
+		</div>
+		<div class="col-sm-12" *ngIf = "screenName === '<app-lesson>'">
+			<app-lesson></app-lesson>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<app-footer></app-footer>
+		</div>
+	</div>
+</div>

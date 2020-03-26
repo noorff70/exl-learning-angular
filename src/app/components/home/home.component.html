@@ -1,0 +1,28 @@
+<div class = "row">
+	<div class="col-4">
+		<img class="img-fluid" src="./assets/images/logo/cholosikhi.png">
+		<!-- <label for="searchBox">Search for Contents</label>-->
+	</div>
+	<div class="col-6">
+		<div class="row"><br></div>
+		<div class ="row">
+			<input type="text" class="form-control" id="id_searchContent" aria-describedby="searchContent" [(ngModel)]="searchContent" placeholder="Search" >
+		</div>
+	</div>
+	<div class="col-2">
+		<button type="submit" class="btn btn-primary" (click)="searchForContent()">Submit</button>
+	</div>
+</div>
+<div class = "row" >
+	<div class = "col-sm-4" *ngFor= "let content of contents; let i= index">
+		<div class="card">
+  			<div class="card-header">{{content.contentId}}</div>
+			  <div class="card-body">{{content.contentName}}</div>
+			  <div class="card-footer">
+				  <button type="submit" class="btn btn-primary" (click)="selectContent(content.contentId)">Submit</button>
+			  </div>
+		</div>
+		
+	</div>
+
+</div>
