@@ -49,6 +49,8 @@ export class Tutor {
 }
 
 export class UserSession {
-	screenName: string;
+	currentScreen: string;
+	nextScreen: string;
 	contentId: any;
+	searchItem: any;
 }

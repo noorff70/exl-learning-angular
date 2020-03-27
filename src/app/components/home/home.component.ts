@@ -21,25 +21,31 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.comService.userSession.subscribe(session => {
+      this.currentSession = session;
+      this.retrieveFromLocalStorage()
+   
+    })
   }
 
-  searchForContent() {
-	  this.contentSearchService.getContentList(this.searchContent).subscribe(data => {
-		this.contents = data;
-		this.rows = this.contents.length / 3;
-		if (this.rows % 3 > 0) {
+  retrieveFromLocalStorage() {
+    this.currentSession = JSON.parse(localStorage.getItem('usersession'));
+    this.contents = this.currentSession.searchItem;
+    if (this.contents !== undefined) {
+      this.rows = this.contents.length / 3;
+      if (this.rows % 3 > 0) {
 			this.rows++;
-		}
-	});
-
+		  }
+    }
+    
   }
+
 
   selectContent(contentId: any) {
 	  this.currentSession = new UserSession();
 	  this.currentSession.contentId = contentId;
-	  this.currentSession.screenName = '<app-lesson>';
+	  this.currentSession.nextScreen = '<app-lesson>';
 	  localStorage.setItem('usersession', JSON.stringify(this.currentSession));
 	  this.comService.changeScreen(this.currentSession);
-   }
-
+  } 
 }

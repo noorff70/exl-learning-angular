@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ContentsearchService } from 'src/app/services/contentsearch/contentsearch.service';
 import { UserSession, LessonContent } from '../models/model';
+import { CommunicationService } from 'src/app/services/common/communication.service';
 
 @Component({
 	selector: 'app-lesson',
@@ -16,6 +17,8 @@ export class LessonComponent implements OnInit {
 	lessonContents: LessonContent[];
 
 	constructor(
+		private contentSearchService: ContentsearchService,
+		private comService: CommunicationService,
 		private lessonSearch: ContentsearchService
 	) {
 		this.lessonContents = [];
@@ -26,38 +29,22 @@ export class LessonComponent implements OnInit {
 
 		this.loadContentIdFmLocalStorage();
 		this.getLessons();
-		//this.createToggle();
 	}
 
 	loadContentIdFmLocalStorage() {
 		this.currentSession = JSON.parse(localStorage.getItem('usersession'));
 		this.contentId = this.currentSession.contentId;
+		console.log('contentId is ' + this.contentId);
 	}
 
 	getLessons() {
 		this.lessonSearch.getLessonByContentId(this.contentId).subscribe(data => {
 			this.lessons = data;
 			this.lessonContents = this.lessons.lessonContent;
-			console.log(data);
 		});
 	}
 	openVideo(link: string) {
 		this.videoLink = link;
 	}
-
-	/*createToggle() {
-
-		const toggler = document.getElementsByClassName('caret');
-		console.log('Toggler length: ' + toggler.length);
-
-		// tslint:disable-next-line: prefer-for-of
-		for (let i = 0; i < 4; i++) {
-			toggler[i].addEventListener('click', function () {
-				this.parentElement.querySelector('.nested').classList.toggle('active');
-				this.classList.toggle('caret-down');
-			});
-		}
-
-	}*/
 
 }

@@ -14,7 +14,8 @@ export class ParentComponent implements OnInit {
 	  private comService: CommunicationService
   ) {
 	  this.comService.userSession$.subscribe(sc => {
-		  this.screenName = sc.screenName;
+      this.screenName = sc.nextScreen;
+      console.log('Next Screen: ' + this.screenName);
 		});
    }
 
