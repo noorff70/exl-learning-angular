@@ -54,3 +54,20 @@ export class UserSession {
 	contentId: any;
 	searchItem: any;
 }
+
+export class TreeData {
+	label: string;
+	data: string;
+	expandedIcon: string;
+    collapsedIcon: string;
+	children: Children[];
+	expanded: boolean;
+}
+
+export class Children {
+	label: string;
+	data : string;
+	expandedIcon: string;
+    collapsedIcon: string;
+	expanded:boolean;
+}

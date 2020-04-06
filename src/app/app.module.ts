@@ -16,6 +16,8 @@ import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './app.routing.module';
 import { LessonComponent } from './components/lesson/lesson.component';
 
+import {TreeModule} from 'primeng/tree';
+import {PanelModule} from 'primeng/panel';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { LessonComponent } from './components/lesson/lesson.component';
 	HttpClientModule,
 	FormsModule,
 	BrowserAnimationsModule,
-	MatVideoModule
+	MatVideoModule,
+	TreeModule,
+	PanelModule
   ],
   providers: [],
   bootstrap: [AppComponent]

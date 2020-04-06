@@ -1,7 +1,25 @@
+<div >
 <div class="row">
-	<div class="col-2">
+	<div class="col-4 ">
+		<p-panel header="Menu">
+		<p-tree [value]=treeNode selectionMode ="single" (onNodeSelect)="nodeSelect($event)" [style]="{'min-width':'30vw','min-height':'70vh', 'overflow':'hidden'}" >
+			<a href="javascript:void(0)" (click)="openVideo($event.node.data)"></a>
+		</p-tree>
+		</p-panel>
+	</div>
+	<div class="col-8" *ngIf = "url !== undefined" style= "height:240; width:320">
+		<mat-video title="My Tutorial Title" [autoplay]="false" [preload]="true" [fullscreen]="true" [download]="false" color="accent"
+			spinner="spin" style="height:auto; width:50%" >
+      		<source matVideoSource src="{{url}}" type="video/mp4">
+      		<track matVideoTrack src="subtitles_en.vtt" kind="subtitles" srclang="en" label="English">
+    	</mat-video>
+	</div>
+</div>
+</div>
+<!-- 
+<div class="row">
+	<div class="col-3">
 		<nav class="navbar" *ngFor= "let lesson of lessonContents; let i = index">
-			<!-- Links -->
 			<ul class="navbar-nav" >
 				<li class="nav-item">					
 					{{lesson.lessonTitle}}
@@ -11,10 +29,10 @@
 						</ul>
 					</nav>
 				</li>
-			</ul>
+			</ul> 
 		</nav>
 	</div>
-	<div class="col-8" *ngIf = "videoLink !== undefined" style= "height:240; width:320">
+	<div class="col-9" *ngIf = "videoLink !== undefined" style= "height:240; width:320">
 		<mat-video title="My Tutorial Title" [autoplay]="false" [preload]="true" [fullscreen]="false" [download]="false" color="accent"
 			spinner="spin" style="height:auto; width:50%" >
       		<source matVideoSource src="{{videoLink}}" type="video/mp4">
@@ -22,4 +40,4 @@
     	</mat-video>
 	</div>
 </div>
- 
+-->

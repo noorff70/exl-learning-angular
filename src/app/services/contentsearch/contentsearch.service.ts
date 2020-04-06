@@ -26,8 +26,18 @@ export class ContentsearchService {
 	  .pipe(catchError(this.handleError));
   }
 
+  getVideoByPath(path: any) {
+	return this.http.get(this.REST_API_SERVER+ `/getVideoByPath`, {
+		params: {
+			PATH: path
+		}
+	})
+	.pipe(catchError(this.handleError));
+  }
+
   handleError(error: HttpErrorResponse) {
 	let errorMessage = 'Unknown error!';
+	console.log('Error from Error Handler');
 	if (error.error instanceof ErrorEvent) {
 		// Client-side errors
 		errorMessage = `Error: ${error.error.message}`;
