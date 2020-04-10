@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class ContentsearchService {
 
-  private REST_API_SERVER = 'http://localhost:8080';
+  private REST_API_SERVER = 'http://localhost:8080/exl-learning-1';
 
   constructor(private http: HttpClient) { }
 
