@@ -14,27 +14,26 @@ export class HomeComponent implements OnInit {
 	contents: any;
 	currentSession: UserSession;
 	rows: number;
+	screenChange: any;
 
 	constructor(
-		// private contentSearchService: ContentsearchService,
 		private comService: CommunicationService
 	) {
-		this.retrieveFromLocalStorage();
+		comService.userSession$.subscribe(sc => {
+			if (sc != null) {
+				this.retrieveFromLocalStorage();
+			}
+		})
 	}
 
 	ngOnInit() {
-		this.comService.userSession.subscribe(session => {
-			this.currentSession = session;
-			// this.retrieveFromLocalStorage()
-
-		})
+		this.retrieveFromLocalStorage()
 	}
 
 	retrieveFromLocalStorage() {
 		this.currentSession = JSON.parse(localStorage.getItem('usersession'));
 		if (this.currentSession != null) {
 			this.contents = this.currentSession.searchItem;
-
 			if (this.contents !== undefined) {
 				this.rows = this.contents.length / 3;
 				if (this.rows % 3 > 0) {

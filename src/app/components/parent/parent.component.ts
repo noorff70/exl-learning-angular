@@ -15,11 +15,13 @@ export class ParentComponent implements OnInit {
   ) {
 	  this.comService.userSession$.subscribe(sc => {
       this.screenName = sc.nextScreen;
-      console.log('Next Screen: ' + this.screenName);
+	console.log();
 		});
    }
 
   ngOnInit() {
+	this.screenName = undefined;
+	localStorage.removeItem('usersession');
   }
 
 }
