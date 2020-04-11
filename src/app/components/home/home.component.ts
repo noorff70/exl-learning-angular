@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ContentsearchService } from 'src/app/services/contentsearch/contentsearch.service';
+// import { ContentsearchService } from 'src/app/services/contentsearch/contentsearch.service';
 import { CommunicationService } from 'src/app/services/common/communication.service';
 import { UserSession } from '../models/model';
 
@@ -16,14 +16,16 @@ export class HomeComponent implements OnInit {
   rows: number;
 
   constructor(
-	private contentSearchService: ContentsearchService,
+	// private contentSearchService: ContentsearchService,
 	private comService: CommunicationService
-  ) { }
+  	) { 
+		this.retrieveFromLocalStorage();
+	}
 
   ngOnInit() {
     this.comService.userSession.subscribe(session => {
       this.currentSession = session;
-      this.retrieveFromLocalStorage()
+     // this.retrieveFromLocalStorage()
    
     })
   }

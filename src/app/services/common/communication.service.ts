@@ -21,6 +21,5 @@ export class CommunicationService {
 
   changeContent(id: any) {
 	this.content.next(id);
-	console.log('id in service' + id);
    }
 }

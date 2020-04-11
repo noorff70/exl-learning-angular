@@ -5,46 +5,50 @@ import { ContentsearchService } from 'src/app/services/contentsearch/contentsear
 import { CommunicationService } from 'src/app/services/common/communication.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+	selector: 'app-header',
+	templateUrl: './header.component.html',
+	styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
 
-  searchContent: string;
-  contents: any;
-  currentSession: UserSession;
+	searchContent: string;
+	contents: any;
+	currentSession: UserSession;
 
-  constructor(
-    private contentSearchService: ContentsearchService,
-    private comService: CommunicationService
-  ) { }
+	constructor(
+		private contentSearchService: ContentsearchService,
+		private comService: CommunicationService
+	) { }
 
-  ngOnInit() {
-  }
+	ngOnInit() {
+	}
 
-  searchForContent() {
-	  this.contentSearchService.getContentList(this.searchContent).subscribe(data => {
-    this.contents = data;
+	searchForContent() {
+		this.contentSearchService.getContentList(this.searchContent).subscribe(data => {
+			this.contents = data;
 
-    this.updateLocalStorage();
-    
-    this.changeScreen();
+			this.updateLocalStorage();
 
-  });
- }
+			this.changeScreen();
 
- updateLocalStorage() {
-    this.currentSession = new UserSession();
+		});
+	}
 
-    this.currentSession.currentScreen = '<app-header>';
-    this.currentSession.nextScreen = '<app-home>';
-    this.currentSession.searchItem = this.contents;
-    localStorage.setItem('usersession', JSON.stringify(this.currentSession));
- }
+	updateLocalStorage() {
+		this.currentSession = new UserSession();
 
- changeScreen() {
-  this.comService.changeScreen(this.currentSession);
- }
+		this.currentSession.currentScreen = '<app-header>';
+		this.currentSession.nextScreen = '<app-home>';
+		this.currentSession.searchItem = this.contents;
+		localStorage.setItem('usersession', JSON.stringify(this.currentSession));
+	}
+
+	changeScreen() {
+		this.comService.changeScreen(this.currentSession);
+	}
+	
+	userLogin() {
+
+	}
 
 }

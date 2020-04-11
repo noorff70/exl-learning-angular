@@ -8,8 +8,8 @@
 		</p-panel>
 	</div>
 	<div class="col-8" *ngIf = "url !== undefined" style= "height:240; width:320">
-		<mat-video title="My Tutorial Title" [autoplay]="false" [preload]="true" [fullscreen]="true" [download]="false" color="accent"
-			spinner="spin" style="height:auto; width:50%" >
+		<mat-video [autoplay]="false" [preload]="true" [fullscreen]="true" [download]="false" color="accent"
+			spinner="spin" style="height:80%; width:50%" >
       		<source matVideoSource src="{{url}}" type="video/mp4">
       		<track matVideoTrack src="subtitles_en.vtt" kind="subtitles" srclang="en" label="English">
     	</mat-video>
