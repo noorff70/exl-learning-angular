@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ContentsearchService } from 'src/app/services/contentsearch/contentsearch.service';
-import { UserSession, LessonContent, TreeData, Children } from '../models/model';
+import { UserSession, LessonContent, TreeData, Children, LessonMission } from '../models/model';
 import { CommunicationService } from 'src/app/services/common/communication.service';
 import { TreeNode } from 'primeng/api';
 import { Router } from '@angular/router';
@@ -18,17 +18,19 @@ export class LessonComponent implements OnInit {
 	currentSession: UserSession;
 	videoLink: string;
 	lessonContents: LessonContent[];
+	lessonMission: any[];
 	treeNode: TreeNode[];
 	treeData: TreeData[];
 	url: string;
 
 	constructor(
-		private contentSearchService: ContentsearchService,
-		private comService: CommunicationService,
+		//private contentSearchService: ContentsearchService,
+		//private comService: CommunicationService,
 		private lessonSearch: ContentsearchService,
-		private router: Router
+		//private router: Router
 	) {
 		this.lessonContents = [];
+		this.lessonMission = [];
 		this.treeNode = [];
 		this.treeData = [];
 	}
@@ -48,6 +50,7 @@ export class LessonComponent implements OnInit {
 		this.lessonSearch.getLessonByContentId(this.contentId).subscribe(data => {
 			this.lessons = data;
 			this.lessonContents = this.lessons.lessonContent;
+			this.lessonMission = this.lessons.lessonMission;
 			this.convertToTreeData();
 		});
 	}
@@ -99,6 +102,10 @@ export class LessonComponent implements OnInit {
 
 	nodeSelect(event) {
 		this.url = event.node.data;
+	}
+	
+	enrolCourse(){
+		
 	}
 
 

@@ -1,4 +1,4 @@
-<div >
+
 <div class="row">
 	<div class="col-4 ">
 		<p-panel header="Menu">
@@ -7,6 +7,26 @@
 		</p-tree>
 		</p-panel>
 	</div>
+	<div class="col-4" *ngIf = "url == undefined && lessonMission.length >0 ">
+		<br><br>
+		<p class="text-left font-bold">Course Objective</p>
+		<p class="text-left font-italic" *ngFor ="let lesson of lessonMission; let i=index">
+			<i class="fa fa-arrow-circle-right" aria-hidden="true"> {{lesson.description}}</i>
+			
+		</p>
+	</div>
+	<div class="col-4" *ngIf = "url == undefined && lessonMission.length >0 ">
+		<br><br>
+		<div class="row">
+			<button type="submit" class="btn btn-block btn-outline-warning float-right" (click)="enrolCourse()">Enroll This Course</button>
+		</div><br>
+		<div class="row">
+			<p class="text-left font-bold">Instructor: {{lessons.lessonAuthor}}</p>
+		</div>
+		<div class="row">
+			<p class="text-left font-bold">Duration:</p>
+		</div>
+	</div>
 	<div class="col-8" *ngIf = "url !== undefined" style= "height:240; width:320">
 		<mat-video [autoplay]="false" [preload]="true" [fullscreen]="true" [download]="false" color="accent"
 			spinner="spin" style="height:80%; width:50%" >
@@ -14,7 +34,6 @@
       		<track matVideoTrack src="subtitles_en.vtt" kind="subtitles" srclang="en" label="English">
     	</mat-video>
 	</div>
-</div>
 </div>
 <!-- 
 <div class="row">
