@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { UserSession } from '../models/model';
 import { ContentsearchService } from 'src/app/services/contentsearch/contentsearch.service';
@@ -26,11 +25,8 @@ export class HeaderComponent implements OnInit {
 	searchForContent() {
 		this.contentSearchService.getContentList(this.searchContent).subscribe(data => {
 			this.contents = data;
-
 			this.updateLocalStorage();
-
 			this.changeScreen();
-
 		});
 	}
 
@@ -49,6 +45,17 @@ export class HeaderComponent implements OnInit {
 	
 	userLogin() {
 
+	}
+	
+	register() {
+		this.currentSession = new UserSession();
+
+		//this.currentSession.currentScreen = '<app-header>';
+		this.currentSession.nextScreen = '<app-register>';
+		//this.currentSession.searchItem = this.contents;
+		localStorage.removeItem('currentsession');
+		//localStorage.setItem('usersession', JSON.stringify(this.currentSession));
+		this.comService.changeScreen(this.currentSession);
 	}
 
 }

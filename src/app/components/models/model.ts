@@ -39,6 +39,9 @@ export class Student {
 	studentId: number;
 	studentFName: string;
 	studentLName: string;
+	password: string;
+	studentEmail: string;
+	userName: string;
 }
 
 export class Tutor {
@@ -53,6 +56,7 @@ export class UserSession {
 	nextScreen: string;
 	contentId: any;
 	searchItem: any;
+	loggedUser: string;
 }
 
 export class TreeData {

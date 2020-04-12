@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ContentsearchService } from 'src/app/services/contentsearch/contentsearch.service';
 import { UserSession, LessonContent, TreeData, Children, LessonMission } from '../models/model';
-import { CommunicationService } from 'src/app/services/common/communication.service';
 import { TreeNode } from 'primeng/api';
-import { Router } from '@angular/router';
 
 
 @Component({

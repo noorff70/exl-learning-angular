@@ -1,0 +1,56 @@
+<br><br>
+<div class="row">
+<div class="col-6"></div>
+<div class="col-6">
+<div class="text-nowrap bd-highlight font-weight-bold text-center" style="width: 8rem;">
+  Please input details to Register
+</div>
+</div>
+<div class="col-6"></div>
+</div>
+<br><br>
+
+	<div class="row">
+		<div class="col-6">
+			 <div class="form-group">
+			 	<!-- <input type="text" class="form-control" id="id_searchContent" [(ngModel)]="searchContent" placeholder="Search" >-->
+    			<input type="text" class="form-control" id="id_fName" placeholder="first name" [(ngModel)]="fName">
+  			</div>
+		</div>
+		<div class="col-6">
+			<div class="form-group">
+    			<input type="text" class="form-control" id="lName" placeholder="last name" [(ngModel)]="lName">
+  			</div>
+		</div>
+	</div>
+	<div class = "row">
+		<div class="col-6">
+			<div class="form-group">
+    			<input type="email" class="form-control" id="exampleInputEmail1" placeholder="email" [(ngModel)]="email">
+  			</div>
+  		</div>
+  		<div class="col-6">
+			<div class="form-group">
+    			<input type="text" class="form-control" id="userId"  placeholder="user name" [(ngModel)]="userName">
+  			</div>
+  		</div>
+	</div>
+	<div class="row">
+		<div class ="col-6">
+			<div class="form-group">
+    			<input type="password" class="form-control" id="pass1" placeholder="password" [(ngModel)]="password1">
+  			</div>
+  		</div>
+  		<div class ="col-6">
+  			<div class="form-group">
+    			<input type="password" class="form-control" id="pass2" placeholder="retype password" [(ngModel)]="password2">
+  			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class ="col-6"></div>
+		<div class ="col-6">
+			  <button type="button" class="btn btn-outline-warning " (click)="userRegister()">Register</button>
+		</div>
+		<div class ="col-6"></div>
+	</div>

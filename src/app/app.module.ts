@@ -10,7 +10,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './components/login/login.component';
-import { LeftnavComponent } from './components/leftnav/leftnav.component';
 import { ParentComponent } from './components/parent/parent.component';
 import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './app.routing.module';
@@ -18,6 +17,7 @@ import { LessonComponent } from './components/lesson/lesson.component';
 
 import {TreeModule} from 'primeng/tree';
 import {PanelModule} from 'primeng/panel';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -27,8 +27,8 @@ import {PanelModule} from 'primeng/panel';
 	FooterComponent,
 	LoginComponent,
 	LessonComponent,
-	LeftnavComponent,
-	ParentComponent
+	ParentComponent,
+	RegisterComponent
   ],
   imports: [
 	BrowserModule,
