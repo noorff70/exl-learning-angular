@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
 	currentSession: UserSession;
 	rows: number;
 	screenChange: any;
+	previousSession: UserSession;
 
 	constructor(
 		private comService: CommunicationService
@@ -45,9 +46,14 @@ export class HomeComponent implements OnInit {
 
 
 	selectContent(contentId: any) {
+		this.previousSession = JSON.parse(localStorage.getItem('usersession'));
+		
 		this.currentSession = new UserSession();
 		this.currentSession.contentId = contentId;
 		this.currentSession.nextScreen = '<app-lesson>';
+		if (this.previousSession.loggedUser != undefined) {
+			this.currentSession.loggedUser = this.previousSession.loggedUser;
+		}
 		localStorage.setItem('usersession', JSON.stringify(this.currentSession));
 		this.comService.changeScreen(this.currentSession);
 	}

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ContentsearchService } from 'src/app/services/contentsearch/contentsearch.service';
-import { UserSession, LessonContent, TreeData, Children, LessonMission } from '../models/model';
+import { UserSession, LessonContent, TreeData, Children } from '../models/model';
 import { TreeNode } from 'primeng/api';
+import { CommunicationService } from 'src/app/services/common/communication.service';
 
 
 @Component({
@@ -22,8 +23,7 @@ export class LessonComponent implements OnInit {
 	url: string;
 
 	constructor(
-		//private contentSearchService: ContentsearchService,
-		//private comService: CommunicationService,
+		private comService: CommunicationService,
 		private lessonSearch: ContentsearchService,
 		//private router: Router
 	) {
@@ -31,6 +31,7 @@ export class LessonComponent implements OnInit {
 		this.lessonMission = [];
 		this.treeNode = [];
 		this.treeData = [];
+		
 	}
 
 	ngOnInit() {
@@ -41,7 +42,8 @@ export class LessonComponent implements OnInit {
 	loadContentIdFmLocalStorage() {
 		this.currentSession = JSON.parse(localStorage.getItem('usersession'));
 		this.contentId = this.currentSession.contentId;
-		console.log('contentId is ' + this.contentId);
+		this.comService.changeScreen(this.currentSession);
+
 	}
 
 	getLessons() {
@@ -98,7 +100,7 @@ export class LessonComponent implements OnInit {
 		}
 	}
 
-	nodeSelect(event) {
+	nodeSelect(event:any) {
 		this.url = event.node.data;
 	}
 	
