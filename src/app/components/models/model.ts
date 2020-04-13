@@ -57,6 +57,7 @@ export class UserSession {
 	contentId: any;
 	searchItem: any;
 	loggedUser: string;
+	enrolledContents: any;
 }
 
 export class TreeData {

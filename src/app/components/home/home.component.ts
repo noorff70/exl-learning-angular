@@ -16,10 +16,11 @@ export class HomeComponent implements OnInit {
 	rows: number;
 	screenChange: any;
 	previousSession: UserSession;
-
+	
 	constructor(
 		private comService: CommunicationService
 	) {
+
 		comService.userSession$.subscribe(sc => {
 			if (sc != null) {
 				this.retrieveFromLocalStorage();
@@ -41,7 +42,8 @@ export class HomeComponent implements OnInit {
 					this.rows++;
 				}
 			}
-		}
+			//check for enrolled 
+		}// end of if
 	}
 
 
@@ -53,6 +55,9 @@ export class HomeComponent implements OnInit {
 		this.currentSession.nextScreen = '<app-lesson>';
 		if (this.previousSession.loggedUser != undefined) {
 			this.currentSession.loggedUser = this.previousSession.loggedUser;
+		}
+		if (this.previousSession.enrolledContents != undefined) {
+			this.currentSession.enrolledContents = this.previousSession.enrolledContents;
 		}
 		localStorage.setItem('usersession', JSON.stringify(this.currentSession));
 		this.comService.changeScreen(this.currentSession);

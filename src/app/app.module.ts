@@ -17,6 +17,7 @@ import { LessonComponent } from './components/lesson/lesson.component';
 
 import {TreeModule} from 'primeng/tree';
 import {PanelModule} from 'primeng/panel';
+import {DialogModule} from 'primeng/dialog';
 import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
@@ -38,7 +39,8 @@ import { RegisterComponent } from './components/register/register.component';
 	BrowserAnimationsModule,
 	MatVideoModule,
 	TreeModule,
-	PanelModule
+	PanelModule,
+	DialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
 	searchContent: string;
 	contents: any;
 	currentSession: UserSession;
+	previousSession: UserSession;
 	loggedUser: string;
 
 	constructor(
@@ -36,7 +37,15 @@ export class HeaderComponent implements OnInit {
 	}
 
 	updateLocalStorage() {
+		this.previousSession = JSON.parse(localStorage.getItem('usersession'));
+		
 		this.currentSession = new UserSession();
+		if (this.previousSession != null) {
+			this.currentSession.loggedUser = this.previousSession.loggedUser
+		}
+		if (this.previousSession != undefined && this.previousSession.enrolledContents != undefined) {
+			this.currentSession.enrolledContents = this.previousSession.enrolledContents
+		}
 
 		this.currentSession.currentScreen = '<app-header>';
 		this.currentSession.nextScreen = '<app-home>';
@@ -59,6 +68,17 @@ export class HeaderComponent implements OnInit {
 		this.currentSession.nextScreen = '<app-register>';
 		localStorage.removeItem('currentsession');
 		this.comService.changeScreen(this.currentSession);
+	}
+	
+	userLogoff() {
+		this.loggedUser = null;
+		localStorage.removeItem('usersession');
+		
+		this.currentSession = new UserSession();
+		this.currentSession.enrolledContents= null;
+		this.currentSession.nextScreen = ('<app-home>');
+		this.comService.changeScreen(this.currentSession );
+		
 	}
 
 }

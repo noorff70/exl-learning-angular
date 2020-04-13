@@ -45,6 +45,16 @@ export class ContentsearchService {
 		return this.http.post(this.REST_API_SERVER + `/userLogin`, student)
 			.pipe(catchError(this.handleError));
 	}
+	
+	addContentForStudent(userName: string, contentId: any) {
+		return this.http.get(this.REST_API_SERVER + `/insertContentforLoggedStudent`, {
+			params: {
+				USERNAME: userName,
+				CONTENTID: contentId
+			}
+		})
+			.pipe(catchError(this.handleError));
+	}
 
 
 	handleError(error: HttpErrorResponse) {

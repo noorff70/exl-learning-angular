@@ -1,4 +1,6 @@
-
+<!-- <div *ngIf = "showDialog==true">
+	Please Register First
+</div> -->
 <div class="row">
 	<div class="col-4 ">
 		<p-panel header="Menu">
@@ -17,8 +19,11 @@
 	</div>
 	<div class="col-4" *ngIf = "url == undefined && lessonMission.length >0 ">
 		<br><br>
-		<div class="row">
+		<div class="row" *ngIf = "enrollButton == true">
 			<button type="submit" class="btn btn-block btn-outline-warning float-right" (click)="enrolCourse()">Enroll This Course</button>
+		</div><br>
+		<div class="row" *ngIf = "enrollButton == false">
+			<button type="submit" class="btn btn-block btn-outline-warning float-right" disabled (click)="enrolCourse()">Already Enrolled</button>
 		</div><br>
 		<div class="row">
 			<p class="text-left font-bold">Instructor: {{lessons.lessonAuthor}}</p>
@@ -35,6 +40,14 @@
     	</mat-video>
 	</div>
 </div>
+<p-dialog [(visible)]="showDialog" modal="modal" width="auto">
+	<p-header>
+        Error Message
+    </p-header>
+	<div class = "row" >
+		<label for="Call">Please register/ login first</label>
+	</div> 
+</p-dialog>
 <!-- 
 <div class="row">
 	<div class="col-3">

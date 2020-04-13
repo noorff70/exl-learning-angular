@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
 		this.currentSession = new UserSession();
 		this.currentSession.nextScreen = '<app-home>';
 		this.currentSession.searchItem = this.contents;
+		this.currentSession.enrolledContents = this.contents;
 		this.currentSession.loggedUser = this.username;
 		localStorage.setItem('usersession', JSON.stringify(this.currentSession));
 

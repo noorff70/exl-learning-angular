@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ContentsearchService } from 'src/app/services/contentsearch/contentsearch.service';
 import { UserSession, LessonContent, TreeData, Children } from '../models/model';
 import { TreeNode } from 'primeng/api';
+//import { DialogModule} from 'primeng/primeng';
 import { CommunicationService } from 'src/app/services/common/communication.service';
 
 
@@ -21,17 +22,21 @@ export class LessonComponent implements OnInit {
 	treeNode: TreeNode[];
 	treeData: TreeData[];
 	url: string;
+	insertSuccess: any;
+	enrollButton: boolean;
+	showDialog: boolean;
+	dialogValue: string;
 
 	constructor(
 		private comService: CommunicationService,
-		private lessonSearch: ContentsearchService,
+		private contentService: ContentsearchService,
 		//private router: Router
 	) {
 		this.lessonContents = [];
 		this.lessonMission = [];
 		this.treeNode = [];
 		this.treeData = [];
-		
+		this.enrollButton = true;
 	}
 
 	ngOnInit() {
@@ -43,11 +48,21 @@ export class LessonComponent implements OnInit {
 		this.currentSession = JSON.parse(localStorage.getItem('usersession'));
 		this.contentId = this.currentSession.contentId;
 		this.comService.changeScreen(this.currentSession);
-
+		this.enableDisableEnrolButton();
+	}
+	
+	enableDisableEnrolButton() {
+		if (this.currentSession.enrolledContents != undefined) {
+			for (let i=0; i< this.currentSession.enrolledContents.length; i++) {
+				if(this.currentSession.contentId == this.currentSession.enrolledContents[i].contentId) {
+					this.enrollButton = false;
+				}
+			}
+		}
 	}
 
 	getLessons() {
-		this.lessonSearch.getLessonByContentId(this.contentId).subscribe(data => {
+		this.contentService.getLessonByContentId(this.contentId).subscribe(data => {
 			this.lessons = data;
 			this.lessonContents = this.lessons.lessonContent;
 			this.lessonMission = this.lessons.lessonMission;
@@ -105,8 +120,20 @@ export class LessonComponent implements OnInit {
 	}
 	
 	enrolCourse(){
+		this.currentSession = JSON.parse(localStorage.getItem('usersession'));
+		if(this.currentSession.loggedUser == null) {
+			this.showDialog = true;
+			this.dialogValue = 'Please register/ login first';
+			return;
+		} else if (this.currentSession.loggedUser != null) {
+			this.dialogValue = 'You are already enrolled for this course';
+			this.showDialog = true;
+		}
 		
+		this.contentService.addContentForStudent(this.currentSession.loggedUser, this.currentSession.contentId)
+			.subscribe (data => {
+				this.insertSuccess = data;
+				console.log();
+			})
 	}
-
-
 }
