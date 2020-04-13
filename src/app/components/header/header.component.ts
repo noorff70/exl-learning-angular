@@ -13,11 +13,16 @@ export class HeaderComponent implements OnInit {
 	searchContent: string;
 	contents: any;
 	currentSession: UserSession;
+	loggedUser: string;
 
 	constructor(
 		private contentSearchService: ContentsearchService,
 		private comService: CommunicationService
-	) { }
+	) {
+		this.comService.userSession$.subscribe( session => {
+			this.loggedUser = session.loggedUser;
+		})
+	 }
 
 	ngOnInit() {
 	}
@@ -44,17 +49,15 @@ export class HeaderComponent implements OnInit {
 	}
 	
 	userLogin() {
-
+		this.currentSession = new UserSession();
+		this.currentSession.nextScreen = '<app-login>';
+		this.comService.changeScreen(this.currentSession );
 	}
 	
 	register() {
 		this.currentSession = new UserSession();
-
-		//this.currentSession.currentScreen = '<app-header>';
 		this.currentSession.nextScreen = '<app-register>';
-		//this.currentSession.searchItem = this.contents;
 		localStorage.removeItem('currentsession');
-		//localStorage.setItem('usersession', JSON.stringify(this.currentSession));
 		this.comService.changeScreen(this.currentSession);
 	}
 

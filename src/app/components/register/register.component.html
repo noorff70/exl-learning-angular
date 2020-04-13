@@ -54,3 +54,8 @@
 		</div>
 		<div class ="col-6"></div>
 	</div>
+	<div class="row" *ngIf = "null != errorMsg"> 
+		<label style="text-align:left; font-size:80%; color:red"
+			*ngFor="let ms of errorMsg"> {{ms}}<br>
+		</label>
+	</div>

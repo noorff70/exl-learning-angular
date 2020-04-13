@@ -40,6 +40,11 @@ export class ContentsearchService {
 		return this.http.post(this.REST_API_SERVER + `/registerNewUser`, student)
 			.pipe(catchError(this.handleError));
 	}
+	
+	userLogin(student: any) {
+		return this.http.post(this.REST_API_SERVER + `/userLogin`, student)
+			.pipe(catchError(this.handleError));
+	}
 
 
 	handleError(error: HttpErrorResponse) {
