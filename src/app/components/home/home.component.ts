@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-// import { ContentsearchService } from 'src/app/services/contentsearch/contentsearch.service';
+import { ContentsearchService } from 'src/app/services/contentsearch/contentsearch.service';
 import { CommunicationService } from 'src/app/services/common/communication.service';
 import { UserSession } from '../models/model';
+
 
 @Component({
 	selector: 'app-home',
@@ -16,9 +17,10 @@ export class HomeComponent implements OnInit {
 	rows: number;
 	screenChange: any;
 	previousSession: UserSession;
-	
+
 	constructor(
-		private comService: CommunicationService
+		private comService: CommunicationService,
+		private contentSearchService: ContentsearchService
 	) {
 
 		comService.userSession$.subscribe(sc => {
@@ -34,6 +36,9 @@ export class HomeComponent implements OnInit {
 
 	retrieveFromLocalStorage() {
 		this.currentSession = JSON.parse(localStorage.getItem('usersession'));
+		if (this.currentSession == null) {
+			this.getDefaultContents();
+		}
 		if (this.currentSession != null) {
 			this.contents = this.currentSession.searchItem;
 			if (this.contents !== undefined) {
@@ -49,7 +54,7 @@ export class HomeComponent implements OnInit {
 
 	selectContent(contentId: any) {
 		this.previousSession = JSON.parse(localStorage.getItem('usersession'));
-		
+
 		this.currentSession = new UserSession();
 		this.currentSession.contentId = contentId;
 		this.currentSession.nextScreen = '<app-lesson>';
@@ -61,5 +66,30 @@ export class HomeComponent implements OnInit {
 		}
 		localStorage.setItem('usersession', JSON.stringify(this.currentSession));
 		this.comService.changeScreen(this.currentSession);
+	}
+
+	getDefaultContents() {
+		this.contentSearchService.getContentList('java').subscribe(data => {
+			this.contents = data;
+			this.updateLocalStorage();
+			//this.changeScreen();
+		});
+	}
+
+	updateLocalStorage() {
+		this.previousSession = JSON.parse(localStorage.getItem('usersession'));
+
+		this.currentSession = new UserSession();
+		if (this.previousSession != null) {
+			this.currentSession.loggedUser = this.previousSession.loggedUser
+		}
+		if (this.previousSession != undefined && this.previousSession.enrolledContents != undefined) {
+			this.currentSession.enrolledContents = this.previousSession.enrolledContents
+		}
+
+		this.currentSession.currentScreen = '<app-header>';
+		this.currentSession.nextScreen = '<app-home>';
+		this.currentSession.searchItem = this.contents;
+		localStorage.setItem('usersession', JSON.stringify(this.currentSession));
 	}
 }
