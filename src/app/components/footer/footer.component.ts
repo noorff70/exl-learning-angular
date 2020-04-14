@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
+	
+	showDialog: any;
 
   constructor( public router: Router) { }
 
@@ -14,7 +16,7 @@ export class FooterComponent implements OnInit {
   }
 
   contactUs() {
-    // TODO
+    this.showDialog = true
   }
 
 }
