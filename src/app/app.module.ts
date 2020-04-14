@@ -19,6 +19,7 @@ import {TreeModule} from 'primeng/tree';
 import {PanelModule} from 'primeng/panel';
 import {DialogModule} from 'primeng/dialog';
 import { RegisterComponent } from './components/register/register.component';
+import { AboutComponent } from './components/about/about.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { RegisterComponent } from './components/register/register.component';
 	LoginComponent,
 	LessonComponent,
 	ParentComponent,
-	RegisterComponent
+	RegisterComponent,
+	AboutComponent
   ],
   imports: [
 	BrowserModule,

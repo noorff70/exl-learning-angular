@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommunicationService } from 'src/app/services/common/communication.service';
+import { UserSession } from '../models/model';
 
 @Component({
   selector: 'app-footer',
@@ -9,14 +11,19 @@ import { Router } from '@angular/router';
 export class FooterComponent implements OnInit {
 	
 	showDialog: any;
+	currentSession: UserSession;
 
-  constructor( public router: Router) { }
+  constructor( public router: Router,
+	private comService: CommunicationService) { }
 
   ngOnInit() {
   }
 
   contactUs() {
-    this.showDialog = true
+	this.currentSession = JSON.parse(localStorage.getItem('usersession'));
+	this.currentSession.nextScreen= '<app-about>';
+	this.comService.changeScreen(this.currentSession);
+    //this.showDialog = true
   }
 
 }
