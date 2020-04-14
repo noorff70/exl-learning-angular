@@ -59,3 +59,11 @@
 			*ngFor="let ms of errorMsg"> {{ms}}<br>
 		</label>
 	</div>
+<p-dialog [(visible)]="hasServerError" modal="modal" width="auto">
+	<p-header>
+        Error Message
+    </p-header>
+	<div class = "row" >
+		<label for="Call">{{serverError}}</label>
+	</div> 
+</p-dialog>

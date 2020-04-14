@@ -20,6 +20,8 @@ export class RegisterComponent implements OnInit {
 	registerReturned: any;
 	currentSession: UserSession;
 	errorMsg: any[];
+	hasServerError: boolean;
+	serverError: any;
 
 	constructor(
 		private userAccesService: ContentsearchService,
@@ -45,6 +47,10 @@ export class RegisterComponent implements OnInit {
 				this.registerReturned = stu;
 				if (this.registerReturned.registerSuccess == true) {
 					this.updateLocalStorage();
+					this.clearText();
+				} else  {
+					this.serverError = this.registerReturned.msgReturned;
+					this.hasServerError = true;
 					this.clearText();
 				}
 			})
