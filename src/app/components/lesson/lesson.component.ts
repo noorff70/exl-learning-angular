@@ -82,8 +82,17 @@ export class LessonComponent implements OnInit {
 			if (this.lessonContents[i].subTitle.length > 0) {
 				for (let j = 0; j < this.lessonContents[i].subTitle.length; j++) { // inner for
 					const child = new Children();
-					child.label = this.lessonContents[i].subTitle[j].name;
-					child.data = this.lessonContents[i].subTitle[j].lessonLink;
+					if (this.lessonContents[i].subTitle[j].lessonType == "0") {
+						child.label = this.lessonContents[i].subTitle[j].name;
+						child.data = undefined;
+						// child.icon = 'pi pi-play';
+					}
+					 else {
+						child.label = this.lessonContents[i].subTitle[j].name;
+						child.data = this.lessonContents[i].subTitle[j].lessonLink;
+						child.icon = 'pi pi-play';
+					}
+					
 					tData.children.push(child);
 				} // end of inner for
 			} // end of if statement
@@ -97,16 +106,16 @@ export class LessonComponent implements OnInit {
 			if (i == 0) {
 				this.treeNode.push({
 					label: this.treeData[i].label,
-					expandedIcon: 'pi-folder-open',
-					collapsedIcon: 'pi-folder',
+					expandedIcon: 'pi pi-folder-open',
+					collapsedIcon: 'pi pi-folder',
 					expanded: true,
 					children: this.treeData[i].children
 				})
 			} else {
 				this.treeNode.push({
 					label: this.treeData[i].label,
-					expandedIcon: 'pi-folder-open',
-					collapsedIcon: 'pi-folder',
+					expandedIcon: 'pi pi-folder-open',
+					collapsedIcon: 'pi pi-folder',
 					expanded: false,
 					children: this.treeData[i].children
 

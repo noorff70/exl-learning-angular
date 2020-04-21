@@ -33,6 +33,7 @@ export class LessonContent {
 export class LessonSubTitle {
 	name: string;
 	lessonLink: string;
+	lessonType: string;
 }
 
 export class Student {
@@ -75,4 +76,5 @@ export class Children {
 	expandedIcon: string;
     collapsedIcon: string;
 	expanded:boolean;
+	icon: string;
 }

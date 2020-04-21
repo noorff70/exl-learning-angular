@@ -4,7 +4,8 @@
 <div class="row">
 	<div class="col-4 ">
 		<p-panel header="Menu">
-		<p-tree [value]=treeNode selectionMode ="single" (onNodeSelect)="nodeSelect($event)" [style]="{'min-width':'30vw','min-height':'70vh', 'overflow':'hidden'}" >
+		<p-tree [value]=treeNode selectionMode ="single" (onNodeSelect)="nodeSelect($event)" 
+					[style]="{'font-size':'1vw','min-width':'30vw','min-height':'70vh', 'overflow':'hidden'}" >
 			<a href="javascript:void(0)" (click)="openVideo($event.node.data)"></a>
 		</p-tree>
 		</p-panel>
