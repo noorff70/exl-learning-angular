@@ -84,7 +84,12 @@ export class LessonComponent implements OnInit {
 					const child = new Children();
 					if (this.lessonContents[i].subTitle[j].lessonType == "0") {
 						child.label = this.lessonContents[i].subTitle[j].name;
-						child.data = undefined;
+						if (this.currentSession.loggedUser == null) {
+							child.data = undefined;
+						} else {
+							child.data = this.lessonContents[i].subTitle[j].lessonLink;
+							child.icon = 'pi pi-play';
+						}
 						// child.icon = 'pi pi-play';
 					}
 					 else {

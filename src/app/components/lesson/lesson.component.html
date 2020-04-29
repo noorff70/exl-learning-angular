@@ -1,6 +1,9 @@
 <!-- <div *ngIf = "showDialog==true">
 	Please Register First
 </div> -->
+<div class= "row " *ngIf = "this.currentSession.loggedUser == null"  style="color:brown; text-align: center">
+	<label for="Call ">Please register free/ login first to see full video</label>
+</div>
 <div class="row">
 	<div class="col-4 ">
 		<p-panel header="Menu">
