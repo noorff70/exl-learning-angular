@@ -1,69 +1,63 @@
-<br><br>
-<div class="row">
-<div class="col-6"></div>
-<div class="col-6">
-<div class="text-nowrap bd-highlight font-weight-bold text-center" style="width: 8rem;">
-  Please input details to Register
+<!-- main app container -->
+<div class="card m-3">
+    <h5 class="card-header">Please Register</h5>
+    <div class="card-body">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+                <div class="form-group col-5">
+                    <label>First Name</label>
+                    <input type="text" formControlName="fName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fName.errors }" />
+                    <div *ngIf="submitted && f.fName.errors" class="invalid-feedback">
+                        <div *ngIf="f.fName.errors.required">First Name is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-5">
+                    <label>Last Name</label>
+                    <input type="text" formControlName="lName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lName.errors }" />
+                    <div *ngIf="submitted && f.lName.errors" class="invalid-feedback">
+                        <div *ngIf="f.lName.errors.required">Last Name is required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-5">
+                    <label>User Name</label>
+                    <input type="text" formControlName="userName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fName.errors }" />
+                    <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+                        <div *ngIf="f.fName.errors.required">User Name is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-5">
+                    <label>email</label>
+                	<input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                	<div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    	<div *ngIf="f.email.errors.required">Email is required</div>
+                    	<div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                	</div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col">
+                    <label>Password</label>
+                    <input type="password" formControlName="password1" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password1.errors }" />
+                    <div *ngIf="submitted && f.password1.errors" class="invalid-feedback">
+                        <div *ngIf="f.password1.errors.required">Password is required</div>
+                        <div *ngIf="f.password1.errors.minlength">Password must be at least 6 characters</div>
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <label>Confirm Password</label>
+                    <input type="password" formControlName="password2" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password2.errors }" />
+                    <div *ngIf="submitted && f.password2.errors" class="invalid-feedback">
+                        <div *ngIf="f.password2.errors.required">Confirm Password is required</div>
+                    <!--     <div *ngIf="f.password2.errors.mustMatch">Passwords must match</div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary mr-1">Register</button>
+                <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
+            </div>
+        </form>
+    </div>
 </div>
-</div>
-<div class="col-6"></div>
-</div>
-<br><br>
-
-	<div class="row">
-		<div class="col-6">
-			 <div class="form-group">
-			 	<!-- <input type="text" class="form-control" id="id_searchContent" [(ngModel)]="searchContent" placeholder="Search" >-->
-    			<input type="text" class="form-control" id="id_fName" placeholder="first name" [(ngModel)]="fName">
-  			</div>
-		</div>
-		<div class="col-6">
-			<div class="form-group">
-    			<input type="text" class="form-control" id="lName" placeholder="last name" [(ngModel)]="lName">
-  			</div>
-		</div>
-	</div>
-	<div class = "row">
-		<div class="col-6">
-			<div class="form-group">
-    			<input type="email" class="form-control" id="exampleInputEmail1" placeholder="email" [(ngModel)]="email">
-  			</div>
-  		</div>
-  		<div class="col-6">
-			<div class="form-group">
-    			<input type="text" class="form-control" id="userId"  placeholder="user name" [(ngModel)]="userName">
-  			</div>
-  		</div>
-	</div>
-	<div class="row">
-		<div class ="col-6">
-			<div class="form-group">
-    			<input type="password" class="form-control" id="pass1" placeholder="password" [(ngModel)]="password1">
-  			</div>
-  		</div>
-  		<div class ="col-6">
-  			<div class="form-group">
-    			<input type="password" class="form-control" id="pass2" placeholder="retype password" [(ngModel)]="password2">
-  			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class ="col-6"></div>
-		<div class ="col-6">
-			  <button type="button" class="btn btn-outline-warning " (click)="userRegister()">Register</button>
-		</div>
-		<div class ="col-6"></div>
-	</div>
-	<div class="row" *ngIf = "null != errorMsg"> 
-		<label style="text-align:left; font-size:80%; color:red"
-			*ngFor="let ms of errorMsg"> {{ms}}<br>
-		</label>
-	</div>
-<p-dialog [(visible)]="hasServerError" modal="modal" width="auto">
-	<p-header>
-        Error Message
-    </p-header>
-	<div class = "row" >
-		<label for="Call">{{serverError}}</label>
-	</div> 
-</p-dialog>
