@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommunicationService } from 'src/app/services/common/communication.service';
 import { ContentsearchService } from 'src/app/services/contentsearch/contentsearch.service';
 import { Student, UserSession } from '../models/model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
 	selector: 'app-login',
@@ -17,15 +18,63 @@ export class LoginComponent implements OnInit {
 	currentSession: UserSession;
 	errorMsg: string[];
 
+	registerForm: FormGroup;
+	submitted = false;
+
 	constructor(private comService: CommunicationService,
-		private userAccesService: ContentsearchService) {
+		private userAccesService: ContentsearchService,
+		private formBuilder: FormBuilder) {
 	}
 
 	ngOnInit() {
 		this.errorMsg = [];
+		this.registerForm = this.formBuilder.group({
+			username: ['', Validators.required],
+			password: ['', Validators.required],
+		});
 	}
 
-	userLogin() {
+	// convenience getter for easy access to form fields
+	get f() { return this.registerForm.controls; }
+
+	onSubmit() {
+		this.submitted = true;
+
+		// stop here if form is invalid
+		if (this.registerForm.invalid) {
+			return;
+		} else {
+			this.student = new Student();
+			this.student.password = this.registerForm.value.password;
+			this.student.userName = this.registerForm.value.username;
+
+			this.userAccesService.userLogin(this.student).subscribe(data => {
+				this.contents = data;
+				if (this.contents != null) {
+					this.updateLocalStorage();
+					this.onReset();
+				} else {
+					this.onReset();
+				}
+			})
+		}
+
+		// display form values on success
+		// alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4));
+	}
+
+	onReset() {
+		this.submitted = false;
+		this.registerForm.reset();
+	}
+
+	registerUser() {
+		this.currentSession = new UserSession();
+		this.currentSession.nextScreen = '<app-register>';
+		this.comService.changeScreen(this.currentSession);
+	}
+
+	/*userLogin() {
 
 		if (this.validateUser()) {
 			this.student = new Student();
@@ -44,7 +93,7 @@ export class LoginComponent implements OnInit {
 			//this.errorMsg = [];
 		}
 		
-	}
+	}*/
 
 	updateLocalStorage() {
 
@@ -60,12 +109,12 @@ export class LoginComponent implements OnInit {
 		this.comService.changeScreen(this.currentSession);
 	}
 
-	clearText() {
+	/*clearText() {
 		this.username = '';
 		this.password = '';
-	}
+	}*/
 
-	validateUser() {
+	/*validateUser() {
 		if (this.username == undefined) {
 			this.errorMsg.push('User name is empty');
 		}
@@ -78,6 +127,6 @@ export class LoginComponent implements OnInit {
 		} else {
 			return false;
 		}
-	}
+	}*/
 
 }
