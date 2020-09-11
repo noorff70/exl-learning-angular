@@ -51,7 +51,12 @@ export class LoginComponent implements OnInit {
 			this.userAccesService.userLogin(this.student).subscribe(data => {
 				this.contents = data;
 				if (this.contents != null) {
-					this.updateLocalStorage();
+					
+					this.currentSession = new UserSession();
+					this.currentSession.nextScreen = '<app-enrolcourse>';
+					this.comService.changeScreen(this.currentSession);
+					
+					//this.updateLocalStorage();
 					this.onReset();
 				} else {
 					this.onReset();
