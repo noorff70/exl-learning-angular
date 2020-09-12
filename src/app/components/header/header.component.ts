@@ -80,5 +80,8 @@ export class HeaderComponent implements OnInit {
 		this.comService.changeScreen(this.currentSession );
 		
 	}
+	myCourses() {
+		
+	}
 
 }

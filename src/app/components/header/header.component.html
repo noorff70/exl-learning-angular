@@ -2,32 +2,30 @@
 	<div class="col-2">
 		<img class="img-fluid" src="./assets/images/logo/cholosikhi.png">
 	</div>
-	<div class="col-6">
+	<div class="col-5">
 		<div class="row"><br></div>
 		<div class ="row">
 			<input type="text" class="form-control" id="id_searchContent" aria-describedby="searchContent" [(ngModel)]="searchContent" placeholder="Search" >
 		</div>
 	</div>
-	<div class="col-2">
+	<div class="col-1">
 		<div class="row"><br></div>
-		<button type="submit" class="btn btn-outline-primary" (click)="searchForContent()">Submit</button>
+		<button class="btn btn-outline-primary" type="submit" (click)="searchForContent()">Submit</button>
 	</div>
-	<div class="col-1"  *ngIf="loggedUser == null"><br>
-			<button type="button" class="btn btn btn-outline-primary btn-sm btn-block" (click)="userLogin()">Login</button>
+	<div class="col-1"  *ngIf="loggedUser == null">
+		<div class="row"><br></div>
+		<button class="btn btn-outline-primary" type="submit" (click)="userLogin()">Login</button>
 	</div>
-	<div class="col-1"  *ngIf="loggedUser != null"><br>
-			<button type="button" class="btn btn btn-outline-primary btn-sm btn-block" (click)="userLogoff()">Logoff</button>
+	<div class="col-1"  *ngIf="loggedUser != null">
+		<div class="row"><br></div>
+		<button class="btn btn-outline-primary" (click)="userLogoff()">Logoff</button>
 	</div>
-	<div class="col-1"><br>
-			<button type="button" class="btn btn btn-outline-info btn-sm btn-block" (click)="register()">Register</button>
+	 <div class="col-1">
+	 	<div class="row"><br></div>
+		<p class="text-right font-bold" style="color:brown">{{loggedUser}}</p>
 	</div>
-	<div class = "row" *ngIf="loggedUser != null">
-	</div>
-</div>
-<div class="row"  *ngIf="loggedUser != null">
-	<div class="col-10">
-	</div>
-	<div class="col-2">
-		<p class="text-right font-bold" style="color:brown">Welcome: {{loggedUser}}</p>
+	<div class="col-1" *ngIf="loggedUser != null">
+		<div class="row"><br></div>
+		<input class="btn btn-outline-primary" type="submit" value="My Courses" (click)="myCourses()">
 	</div>
 </div>

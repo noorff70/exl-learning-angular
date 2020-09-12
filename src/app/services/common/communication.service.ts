@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, ReplaySubject } from 'rxjs';
 import { UserSession} from 'src/app/components/models/model';
 import { FormGroup } from '@angular/forms';
 
@@ -8,10 +8,10 @@ import { FormGroup } from '@angular/forms';
 })
 export class CommunicationService {
 
-	userSession = new Subject<UserSession>();
+	userSession = new ReplaySubject<UserSession>();
 	userSession$ = this.userSession.asObservable();
 
-	content = new Subject<any>();
+	content = new ReplaySubject<any>();
 	content$ = this.content.asObservable();
 
   constructor() { }
