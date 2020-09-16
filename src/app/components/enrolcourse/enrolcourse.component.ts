@@ -15,6 +15,7 @@ export class EnrolcourseComponent implements OnInit {
 	rows: number;
 	currentSession: UserSession;
 	enrolledStatus: boolean = false;
+	enrolledContents: any;
 
 	constructor(
 		private comService: CommunicationService
@@ -23,6 +24,7 @@ export class EnrolcourseComponent implements OnInit {
 			this.loggedUser = session.loggedUser;
 			this.userSession.enrolledContents = session.enrolledContents;
 			this.enrolledStatus = session.enrolledStatus;
+			this.enrolledContents = session.enrolledContents;
 		})
 	}
 
@@ -46,13 +48,15 @@ export class EnrolcourseComponent implements OnInit {
 			this.currentSession = new UserSession();
 			this.currentSession.contentId = contentId;
 			this.currentSession.enrolledStatus = this.enrolledStatus;
+			this.currentSession.enrolledContents = this.enrolledContents;
+			this.currentSession.loggedUser = this.loggedUser;
 			this.currentSession.nextScreen = '<app-lesson>';
 			//if (this.previousSession.loggedUser != undefined) {
 			//	this.currentSession.loggedUser = this.previousSession.loggedUser;
 			//}
 			//if (this.previousSession.enrolledContents != undefined) {
 			//	this.currentSession.enrolledContents = this.previousSession.enrolledContents;
-				this.currentSession.enrolledContents = this.contents;
+			this.currentSession.enrolledContents = this.contents;
 			//}
 			//localStorage.setItem('usersession', JSON.stringify(this.currentSession));
 			this.comService.changeScreen(this.currentSession); 

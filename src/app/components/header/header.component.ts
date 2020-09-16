@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
 		private comService: CommunicationService
 	) {
 		this.comService.userSession$.subscribe( session => {
+			this.currentSession = session;
 			this.loggedUser = session.loggedUser;
 		})
 	 }
@@ -31,12 +32,12 @@ export class HeaderComponent implements OnInit {
 	searchForContent() {
 		this.contentSearchService.getContentList(this.searchContent).subscribe(data => {
 			this.contents = data;
-			this.updateLocalStorage();
+			// this.updateLocalStorage();
 			this.changeScreen();
 		});
 	}
 
-	updateLocalStorage() {
+/*	updateLocalStorage() {
 		this.previousSession = JSON.parse(localStorage.getItem('usersession'));
 		
 		this.currentSession = new UserSession();
@@ -51,8 +52,7 @@ export class HeaderComponent implements OnInit {
 		this.currentSession.nextScreen = '<app-home>';
 		this.currentSession.searchItem = this.contents;
 		localStorage.setItem('usersession', JSON.stringify(this.currentSession));
-	}
-
+	}*/
 	changeScreen() {
 		this.comService.changeScreen(this.currentSession);
 	}
@@ -72,7 +72,7 @@ export class HeaderComponent implements OnInit {
 	
 	userLogoff() {
 		this.loggedUser = null;
-		localStorage.removeItem('usersession');
+		//localStorage.removeItem('usersession');
 		
 		this.currentSession = new UserSession();
 		this.currentSession.enrolledContents= null;
@@ -81,7 +81,8 @@ export class HeaderComponent implements OnInit {
 		
 	}
 	myCourses() {
-		
+		this.currentSession.nextScreen= '<app-enrolcourse>';
+		this.comService.changeScreen(this.currentSession);
 	}
 
 }
