@@ -32,6 +32,10 @@ export class HeaderComponent implements OnInit {
 	searchForContent() {
 		this.contentSearchService.getContentList(this.searchContent).subscribe(data => {
 			this.contents = data;
+			this.currentSession = new UserSession()
+			this.currentSession.enrolledContents = data;
+			this.currentSession.contentId = null;
+			this.currentSession.nextScreen = '<app-home>';
 			// this.updateLocalStorage();
 			this.changeScreen();
 		});

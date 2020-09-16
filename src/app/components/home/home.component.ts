@@ -23,10 +23,16 @@ export class HomeComponent implements OnInit {
 		private contentSearchService: ContentsearchService
 	) {
 
-		comService.userSession$.subscribe(sc => {
-			if (sc != null) {
-				this.retrieveFromLocalStorage();
-			}
+		//comService.userSession$.subscribe(sc => {
+		//	if (sc != null) {
+			//	this.retrieveFromLocalStorage();
+		//	}
+		//})
+		this.comService.userSession$.subscribe( session => {
+			this.currentSession = session;
+			this.contents = this.currentSession.enrolledContents;
+			this.retrieveFromLocalStorage();
+			// this.loggedUser = session.loggedUser;
 		})
 	}
 
@@ -35,12 +41,12 @@ export class HomeComponent implements OnInit {
 	}
 
 	retrieveFromLocalStorage() {
-		this.currentSession = JSON.parse(localStorage.getItem('usersession'));
+		//this.currentSession = JSON.parse(localStorage.getItem('usersession'));
 		if (this.currentSession == null) {
 			this.getDefaultContents();
 		}
 		if (this.currentSession != null) {
-			this.contents = this.currentSession.searchItem;
+			this.contents = this.currentSession.enrolledContents;
 			if (this.contents !== undefined) {
 				this.rows = this.contents.length / 3;
 				if (this.rows % 3 > 0) {
@@ -53,30 +59,30 @@ export class HomeComponent implements OnInit {
 
 
 	selectContent(contentId: any) {
-		this.previousSession = JSON.parse(localStorage.getItem('usersession'));
+		// this.previousSession = JSON.parse(localStorage.getItem('usersession'));
 
 		this.currentSession = new UserSession();
 		this.currentSession.contentId = contentId;
 		this.currentSession.nextScreen = '<app-lesson>';
-		if (this.previousSession.loggedUser != undefined) {
-			this.currentSession.loggedUser = this.previousSession.loggedUser;
-		}
-		if (this.previousSession.enrolledContents != undefined) {
-			this.currentSession.enrolledContents = this.previousSession.enrolledContents;
-		}
-		localStorage.setItem('usersession', JSON.stringify(this.currentSession));
+		//if (this.previousSession.loggedUser != undefined) {
+		//	this.currentSession.loggedUser = this.previousSession.loggedUser;
+		//}
+		//if (this.previousSession.enrolledContents != undefined) {
+		//	this.currentSession.enrolledContents = this.previousSession.enrolledContents;
+		//}
+		//localStorage.setItem('usersession', JSON.stringify(this.currentSession));
 		this.comService.changeScreen(this.currentSession);
 	}
 
 	getDefaultContents() {
 		this.contentSearchService.getContentList('java').subscribe(data => {
 			this.contents = data;
-			this.updateLocalStorage();
+			// this.updateLocalStorage();
 			//this.changeScreen();
 		});
 	}
 
-	updateLocalStorage() {
+	/*updateLocalStorage() {
 		this.previousSession = JSON.parse(localStorage.getItem('usersession'));
 
 		this.currentSession = new UserSession();
@@ -91,5 +97,5 @@ export class HomeComponent implements OnInit {
 		this.currentSession.nextScreen = '<app-home>';
 		this.currentSession.searchItem = this.contents;
 		localStorage.setItem('usersession', JSON.stringify(this.currentSession));
-	}
+	}*/
 }
