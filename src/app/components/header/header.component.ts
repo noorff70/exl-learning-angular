@@ -11,8 +11,8 @@ import { CommunicationService } from 'src/app/services/common/communication.serv
 export class HeaderComponent implements OnInit {
 
 	searchContent: string;
-	contents: any;
-	currentSession: UserSession;
+	//contents: any;
+	userSession: UserSession;
 	previousSession: UserSession;
 	loggedUser: string;
 
@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
 		private comService: CommunicationService
 	) {
 		this.comService.userSession$.subscribe( session => {
-			this.currentSession = session;
+			this.userSession = session;
 			this.loggedUser = session.loggedUser;
 		})
 	 }
@@ -31,62 +31,59 @@ export class HeaderComponent implements OnInit {
 
 	searchForContent() {
 		this.contentSearchService.getContentList(this.searchContent).subscribe(data => {
-			this.contents = data;
-			this.currentSession = new UserSession()
-			this.currentSession.enrolledContents = data;
-			this.currentSession.contentId = null;
-			this.currentSession.nextScreen = '<app-home>';
+			//this.contents = data;
+			if (this.userSession === undefined) {
+				this.userSession = new UserSession();
+				this.userSession.searchedContents = data;
+				this.userSession.contentId = null;
+				this.userSession.nextScreen = '<app-home>';
+			} else if (this.userSession !== undefined && this.userSession.loggedUser === undefined){
+				this.userSession = new UserSession();
+				this.userSession.searchedContents = data;
+				this.userSession.contentId = null;
+				this.userSession.nextScreen = '<app-home>';
+			} else {
+				this.userSession.searchedContents = data;
+				this.userSession.contentId = null;
+				this.userSession.nextScreen = '<app-home>';
+			}
+			this.userSession.didSearch = true;
+			
 			// this.updateLocalStorage();
 			this.changeScreen();
 		});
 	}
 
-/*	updateLocalStorage() {
-		this.previousSession = JSON.parse(localStorage.getItem('usersession'));
-		
-		this.currentSession = new UserSession();
-		if (this.previousSession != null) {
-			this.currentSession.loggedUser = this.previousSession.loggedUser
-		}
-		if (this.previousSession != undefined && this.previousSession.enrolledContents != undefined) {
-			this.currentSession.enrolledContents = this.previousSession.enrolledContents
-		}
-
-		this.currentSession.currentScreen = '<app-header>';
-		this.currentSession.nextScreen = '<app-home>';
-		this.currentSession.searchItem = this.contents;
-		localStorage.setItem('usersession', JSON.stringify(this.currentSession));
-	}*/
 	changeScreen() {
-		this.comService.changeScreen(this.currentSession);
+		this.comService.changeScreen(this.userSession);
 	}
 	
 	userLogin() {
-		this.currentSession = new UserSession();
-		this.currentSession.nextScreen = '<app-login>';
-		this.comService.changeScreen(this.currentSession );
+		this.userSession = new UserSession();
+		this.userSession.nextScreen = '<app-login>';
+		this.comService.changeScreen(this.userSession );
 	}
 	
 	register() {
-		this.currentSession = new UserSession();
-		this.currentSession.nextScreen = '<app-register>';
+		this.userSession = new UserSession();
+		this.userSession.nextScreen = '<app-register>';
 		localStorage.removeItem('currentsession');
-		this.comService.changeScreen(this.currentSession);
+		this.comService.changeScreen(this.userSession);
 	}
 	
 	userLogoff() {
 		this.loggedUser = null;
 		//localStorage.removeItem('usersession');
 		
-		this.currentSession = new UserSession();
-		this.currentSession.enrolledContents= null;
-		this.currentSession.nextScreen = ('<app-home>');
-		this.comService.changeScreen(this.currentSession );
+		this.userSession = new UserSession();
+		this.userSession.enrolledContents= null;
+		this.userSession.nextScreen = ('<app-home>');
+		this.comService.changeScreen(this.userSession );
 		
 	}
 	myCourses() {
-		this.currentSession.nextScreen= '<app-enrolcourse>';
-		this.comService.changeScreen(this.currentSession);
+		this.userSession.nextScreen= '<app-enrolcourse>';
+		this.comService.changeScreen(this.userSession);
 	}
 
 }

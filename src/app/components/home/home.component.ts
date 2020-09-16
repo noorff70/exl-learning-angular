@@ -17,37 +17,39 @@ export class HomeComponent implements OnInit {
 	rows: number;
 	screenChange: any;
 	previousSession: UserSession;
+	searchedContents: any;
+	enrolledContents: any;
 
 	constructor(
 		private comService: CommunicationService,
 		private contentSearchService: ContentsearchService
 	) {
 
-		//comService.userSession$.subscribe(sc => {
-		//	if (sc != null) {
-			//	this.retrieveFromLocalStorage();
-		//	}
-		//})
 		this.comService.userSession$.subscribe( session => {
 			this.currentSession = session;
-			this.contents = this.currentSession.enrolledContents;
-			this.retrieveFromLocalStorage();
-			// this.loggedUser = session.loggedUser;
+			this.enrolledContents = session.enrolledContents;
+			this.searchedContents = session.searchedContents;
+			this.loadContents();
 		})
 	}
 
 	ngOnInit() {
-		this.retrieveFromLocalStorage()
+		this.loadContents()
 	}
 
-	retrieveFromLocalStorage() {
+	loadContents() {
 		//this.currentSession = JSON.parse(localStorage.getItem('usersession'));
 		if (this.currentSession == null) {
 			this.getDefaultContents();
 		}
 		if (this.currentSession != null) {
-			this.contents = this.currentSession.enrolledContents;
-			if (this.contents !== undefined) {
+			if (this.currentSession.loggedStatus === true && this.currentSession.didSearch !== true) {
+				this.contents = this.currentSession.enrolledContents;
+			} else {
+				this.contents = this.currentSession.searchedContents;
+			}
+			
+			if (this.contents !== undefined) { 
 				this.rows = this.contents.length / 3;
 				if (this.rows % 3 > 0) {
 					this.rows++;
@@ -59,43 +61,16 @@ export class HomeComponent implements OnInit {
 
 
 	selectContent(contentId: any) {
-		// this.previousSession = JSON.parse(localStorage.getItem('usersession'));
-
-		this.currentSession = new UserSession();
 		this.currentSession.contentId = contentId;
 		this.currentSession.nextScreen = '<app-lesson>';
-		//if (this.previousSession.loggedUser != undefined) {
-		//	this.currentSession.loggedUser = this.previousSession.loggedUser;
-		//}
-		//if (this.previousSession.enrolledContents != undefined) {
-		//	this.currentSession.enrolledContents = this.previousSession.enrolledContents;
-		//}
-		//localStorage.setItem('usersession', JSON.stringify(this.currentSession));
 		this.comService.changeScreen(this.currentSession);
 	}
 
 	getDefaultContents() {
 		this.contentSearchService.getContentList('java').subscribe(data => {
+			this.currentSession = new UserSession();
+			this.currentSession.searchedContents = data;
 			this.contents = data;
-			// this.updateLocalStorage();
-			//this.changeScreen();
 		});
 	}
-
-	/*updateLocalStorage() {
-		this.previousSession = JSON.parse(localStorage.getItem('usersession'));
-
-		this.currentSession = new UserSession();
-		if (this.previousSession != null) {
-			this.currentSession.loggedUser = this.previousSession.loggedUser
-		}
-		if (this.previousSession != undefined && this.previousSession.enrolledContents != undefined) {
-			this.currentSession.enrolledContents = this.previousSession.enrolledContents
-		}
-
-		this.currentSession.currentScreen = '<app-header>';
-		this.currentSession.nextScreen = '<app-home>';
-		this.currentSession.searchItem = this.contents;
-		localStorage.setItem('usersession', JSON.stringify(this.currentSession));
-	}*/
 }

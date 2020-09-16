@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ContentsearchService } from 'src/app/services/contentsearch/contentsearch.service';
 import { UserSession, LessonContent, TreeData, Children } from '../models/model';
 import { TreeNode } from 'primeng/api';
-//import { DialogModule} from 'primeng/primeng';
 import { CommunicationService } from 'src/app/services/common/communication.service';
 
 
@@ -26,6 +25,7 @@ export class LessonComponent implements OnInit {
 	enrollButton: boolean;
 	showDialog: boolean;
 	dialogValue: string;
+	isSelectedContentEnrolled: boolean = false;
 
 	constructor(
 		private comService: CommunicationService,
@@ -44,40 +44,25 @@ export class LessonComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		// this.loadContentIdFmLocalStorage();
-		if (this.currentSession.enrolledStatus === true) {
-			
-		}
 		this.loadLesson();
-		this.getLessons();
 	}
 	
 	loadLesson() {
 		this.contentId = this.currentSession.contentId;
 		this.lessonContents = this.currentSession.enrolledContents;
 		this.comService.changeScreen(this.currentSession);
-		if (this.currentSession.enrolledStatus === true) {
-			this.enableDisableEnrolButton();
-		}
-		
-	}
-
-	/*loadContentIdFmLocalStorage() {
-		this.currentSession = JSON.parse(localStorage.getItem('usersession'));
-		this.contentId = this.currentSession.contentId;
-		this.comService.changeScreen(this.currentSession);
-		this.enableDisableEnrolButton();
-	}*/
-	
-	enableDisableEnrolButton() {
-		if (this.currentSession.enrolledContents != undefined) {
-			for (let i=0; i< this.currentSession.enrolledContents.length; i++) {
-				if(this.currentSession.contentId == this.currentSession.enrolledContents[i].contentId) {
-					this.enrollButton = false;
-				}
+		this.isEnrolledForSelectedContent ();
+		if (this.currentSession.loggedStatus === true) {
+			if (this.isSelectedContentEnrolled === true) {
+				this.enrollButton = false;
+				//this.enableDisableEnrolButton(); 
+			} else {
+				this.enrollButton = true;
 			}
 		}
+		this.getLessons();
 	}
+
 
 	getLessons() {
 		this.contentService.getLessonByContentId(this.contentId).subscribe(data => {
@@ -93,6 +78,8 @@ export class LessonComponent implements OnInit {
 
 
 	convertToTreeData() {
+		this.isEnrolledForSelectedContent();
+		
 		for (let i = 0; i < this.lessonContents.length; i++) {
 			const tData = new TreeData();
 			tData.children = [];
@@ -100,9 +87,9 @@ export class LessonComponent implements OnInit {
 			if (this.lessonContents[i].subTitle.length > 0) {
 				for (let j = 0; j < this.lessonContents[i].subTitle.length; j++) { // inner for
 					const child = new Children();
-					if (this.lessonContents[i].subTitle[j].lessonType == "0" && this.currentSession.enrolledStatus !== true) {
+					if (this.lessonContents[i].subTitle[j].lessonType == "0" && this.isSelectedContentEnrolled == false) {
 						child.label = this.lessonContents[i].subTitle[j].name;
-						if (this.currentSession.loggedUser == null) {
+						if (this.isSelectedContentEnrolled === false) {
 							child.data = undefined;
 						} else {
 							child.data = this.lessonContents[i].subTitle[j].lessonLink;
@@ -167,5 +154,17 @@ export class LessonComponent implements OnInit {
 				this.insertSuccess = data;
 				console.log();
 			})
+	}
+	
+	isEnrolledForSelectedContent () {
+		if (this.currentSession.enrolledContents !== undefined) {
+			for (let i=0; i< this.currentSession.enrolledContents.length; i++) {
+			if (this.currentSession.enrolledContents[i].contentId === this.contentId){
+				this.isSelectedContentEnrolled = true;
+				return;
+			}
+		}
+		this.isSelectedContentEnrolled = false;
+		}
 	}
 }

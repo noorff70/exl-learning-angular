@@ -56,21 +56,15 @@ export class LoginComponent implements OnInit {
 					this.currentSession.nextScreen = '<app-enrolcourse>';
 					this.currentSession.loggedUser = this.student.userName
 					this.currentSession.userName = this.student.userName;
-					this.currentSession.password = this.student.password;
+					//this.currentSession.password = this.student.password;
 					this.currentSession.enrolledContents = this.contents;
-					this.currentSession.enrolledStatus = true;
+					this.currentSession.loggedStatus = true;
 					this.comService.changeScreen(this.currentSession);
-					
-					//this.updateLocalStorage();
-					//this.onReset();
 				} else {
 					this.onReset();
 				}
 			})
 		}
-
-		// display form values on success
-		// alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4));
 	}
 
 	onReset() {
@@ -83,60 +77,5 @@ export class LoginComponent implements OnInit {
 		this.currentSession.nextScreen = '<app-register>';
 		this.comService.changeScreen(this.currentSession);
 	}
-
-	/*userLogin() {
-
-		if (this.validateUser()) {
-			this.student = new Student();
-			this.student.userName = this.username;
-			this.student.password = this.password;
-
-			this.userAccesService.userLogin(this.student).subscribe(data => {
-				this.contents = data;
-				if (this.contents != null) {
-					this.updateLocalStorage();
-					this.clearText();
-				}
-			})
-		} else {
-			this.clearText();
-			//this.errorMsg = [];
-		}
-		
-	}*/
-
-	updateLocalStorage() {
-
-		localStorage.removeItem('usersession');
-
-		this.currentSession = new UserSession();
-		this.currentSession.nextScreen = '<app-home>';
-		this.currentSession.searchItem = this.contents;
-		this.currentSession.enrolledContents = this.contents;
-		this.currentSession.loggedUser = this.username;
-		localStorage.setItem('usersession', JSON.stringify(this.currentSession));
-
-		this.comService.changeScreen(this.currentSession);
-	}
-
-	/*clearText() {
-		this.username = '';
-		this.password = '';
-	}*/
-
-	/*validateUser() {
-		if (this.username == undefined) {
-			this.errorMsg.push('User name is empty');
-		}
-		if (this.password == undefined) {
-			this.errorMsg.push('Password is empty');
-		}
-
-		if (this.errorMsg.length == 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}*/
 
 }

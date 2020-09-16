@@ -23,7 +23,7 @@ export class EnrolcourseComponent implements OnInit {
 		this.comService.userSession$.subscribe(session => {
 			this.loggedUser = session.loggedUser;
 			this.userSession.enrolledContents = session.enrolledContents;
-			this.enrolledStatus = session.enrolledStatus;
+			this.enrolledStatus = session.loggedStatus;
 			this.enrolledContents = session.enrolledContents;
 		})
 	}
@@ -43,22 +43,14 @@ export class EnrolcourseComponent implements OnInit {
 	}
 
 	selectContent(contentId: any) {
-			//this.previousSession = JSON.parse(localStorage.getItem('usersession'));
 	
 			this.currentSession = new UserSession();
 			this.currentSession.contentId = contentId;
-			this.currentSession.enrolledStatus = this.enrolledStatus;
+			this.currentSession.loggedStatus = this.enrolledStatus;
 			this.currentSession.enrolledContents = this.enrolledContents;
 			this.currentSession.loggedUser = this.loggedUser;
 			this.currentSession.nextScreen = '<app-lesson>';
-			//if (this.previousSession.loggedUser != undefined) {
-			//	this.currentSession.loggedUser = this.previousSession.loggedUser;
-			//}
-			//if (this.previousSession.enrolledContents != undefined) {
-			//	this.currentSession.enrolledContents = this.previousSession.enrolledContents;
 			this.currentSession.enrolledContents = this.contents;
-			//}
-			//localStorage.setItem('usersession', JSON.stringify(this.currentSession));
 			this.comService.changeScreen(this.currentSession); 
 	}
 

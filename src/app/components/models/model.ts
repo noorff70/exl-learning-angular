@@ -53,15 +53,17 @@ export class Tutor {
 }
 
 export class UserSession {
-	currentScreen: string;
+	// currentScreen: string;
 	nextScreen: string;
 	contentId: any;
-	searchItem: any;
+	didSearch: boolean;
+	// searchItem: any;
 	loggedUser: string;
 	enrolledContents: any;
+	searchedContents: any;
 	userName: string;
 	password: string;
-	enrolledStatus: boolean;
+	loggedStatus: boolean;
 }
 
 export class TreeData {
