@@ -59,6 +59,9 @@ export class UserSession {
 	searchItem: any;
 	loggedUser: string;
 	enrolledContents: any;
+	userName: string;
+	password: string;
+	enrolledStatus: boolean;
 }
 
 export class TreeData {

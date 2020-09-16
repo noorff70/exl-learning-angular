@@ -55,6 +55,10 @@ export class LoginComponent implements OnInit {
 					this.currentSession = new UserSession();
 					this.currentSession.nextScreen = '<app-enrolcourse>';
 					this.currentSession.loggedUser = this.student.userName
+					this.currentSession.userName = this.student.userName;
+					this.currentSession.password = this.student.password;
+					this.currentSession.enrolledContents = this.contents;
+					this.currentSession.enrolledStatus = true;
 					this.comService.changeScreen(this.currentSession);
 					
 					//this.updateLocalStorage();

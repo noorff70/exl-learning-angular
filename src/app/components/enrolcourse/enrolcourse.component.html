@@ -1,1 +1,14 @@
-<p class="text-right font-bold" style="color:brown">Welcome: {{loggedUser}}</p>
+<!-- <p class="text-right font-bold" style="color:brown">Welcome: {{loggedUser}}</p>-->
+<br>
+<div class = "row" >
+	<div class = "col-sm-4" *ngFor= "let content of contents; let i= index">
+		<div class="card">
+  			<div class="card-header text-center font-weight-bolder">{{content.contentName}}</div>
+			  <div class="card-body">{{content.contentDesc}}</div>
+			  <div class="card-footer">
+				  <button type="submit" class="btn btn-primary btn-block" (click)="selectContent(content.contentId)">Start Tutorial</button>
+			  </div>
+		</div>
+	</div>
+</div>
+

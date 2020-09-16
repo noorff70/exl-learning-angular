@@ -30,6 +30,7 @@ export class LessonComponent implements OnInit {
 	constructor(
 		private comService: CommunicationService,
 		private contentService: ContentsearchService,
+		
 		//private router: Router
 	) {
 		this.lessonContents = [];
@@ -37,19 +38,36 @@ export class LessonComponent implements OnInit {
 		this.treeNode = [];
 		this.treeData = [];
 		this.enrollButton = true;
+		this.comService.userSession$.subscribe( session => {
+			this.currentSession = session;
+		})
 	}
 
 	ngOnInit() {
-		this.loadContentIdFmLocalStorage();
+		// this.loadContentIdFmLocalStorage();
+		if (this.currentSession.enrolledStatus === true) {
+			
+		}
+		this.loadLesson();
 		this.getLessons();
 	}
+	
+	loadLesson() {
+		this.contentId = this.currentSession.contentId;
+		this.lessonContents = this.currentSession.enrolledContents;
+		this.comService.changeScreen(this.currentSession);
+		if (this.currentSession.enrolledStatus === true) {
+			this.enableDisableEnrolButton();
+		}
+		
+	}
 
-	loadContentIdFmLocalStorage() {
+	/*loadContentIdFmLocalStorage() {
 		this.currentSession = JSON.parse(localStorage.getItem('usersession'));
 		this.contentId = this.currentSession.contentId;
 		this.comService.changeScreen(this.currentSession);
 		this.enableDisableEnrolButton();
-	}
+	}*/
 	
 	enableDisableEnrolButton() {
 		if (this.currentSession.enrolledContents != undefined) {
@@ -82,7 +100,7 @@ export class LessonComponent implements OnInit {
 			if (this.lessonContents[i].subTitle.length > 0) {
 				for (let j = 0; j < this.lessonContents[i].subTitle.length; j++) { // inner for
 					const child = new Children();
-					if (this.lessonContents[i].subTitle[j].lessonType == "0") {
+					if (this.lessonContents[i].subTitle[j].lessonType == "0" && this.currentSession.enrolledStatus !== true) {
 						child.label = this.lessonContents[i].subTitle[j].name;
 						if (this.currentSession.loggedUser == null) {
 							child.data = undefined;
