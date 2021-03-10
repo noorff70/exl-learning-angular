@@ -54,8 +54,7 @@ export class LessonComponent implements OnInit {
 		this.isEnrolledForSelectedContent ();
 		if (this.currentSession.loggedStatus === true) {
 			if (this.isSelectedContentEnrolled === true) {
-				this.enrollButton = false;
-				//this.enableDisableEnrolButton(); 
+				this.enrollButton = false; 
 			} else {
 				this.enrollButton = true;
 			}
@@ -159,7 +158,8 @@ export class LessonComponent implements OnInit {
 				this.contentService.getContentListForLoggedUser(student)
 					.subscribe (data => {
 						this.currentSession.enrolledContents = data;
-						this.loadLesson()
+						this.isSelectedContentEnrolled = true;
+						this.enrollButton = false;
 					})
 			})
 	}
