@@ -55,7 +55,7 @@ export class LessonComponent implements OnInit {
 		if (this.currentSession.loggedStatus === true) {
 			if (this.isSelectedContentEnrolled === true) {
 				this.enrollButton = false; 
-			} else {
+			} else { 
 				this.enrollButton = true;
 			}
 		}
