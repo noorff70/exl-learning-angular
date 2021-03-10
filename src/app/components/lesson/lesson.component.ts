@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ContentsearchService } from 'src/app/services/contentsearch/contentsearch.service';
-import { UserSession, LessonContent, TreeData, Children } from '../models/model';
+import { UserSession, LessonContent, TreeData, Children, Student } from '../models/model';
 import { TreeNode } from 'primeng/api';
 import { CommunicationService } from 'src/app/services/common/communication.service';
 
@@ -139,20 +139,28 @@ export class LessonComponent implements OnInit {
 	}
 	
 	enrolCourse(){
-		this.currentSession = JSON.parse(localStorage.getItem('usersession'));
+		
 		if(this.currentSession.loggedUser == null) {
 			this.showDialog = true;
 			this.dialogValue = 'Please register/ login first';
 			return;
 		} else if (this.currentSession.loggedUser != null) {
-			this.dialogValue = 'You are already enrolled for this course';
-			this.showDialog = true;
+			// this.dialogValue = 'You are already enrolled for this course';
+			// this.showDialog = true;
 		}
 		
 		this.contentService.addContentForStudent(this.currentSession.loggedUser, this.currentSession.contentId)
 			.subscribe (data => {
 				this.insertSuccess = data;
-				console.log();
+				
+				let student = new Student();
+				student.userName = this.currentSession.loggedUser;
+				
+				this.contentService.getContentListForLoggedUser(student)
+					.subscribe (data => {
+						this.currentSession.enrolledContents = data;
+						this.loadLesson()
+					})
 			})
 	}
 	
