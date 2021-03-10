@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ContentsearchService } from 'src/app/services/contentsearch/contentsearch.service';
 import { UserSession, LessonContent, TreeData, Children, Student } from '../models/model';
 import { TreeNode } from 'primeng/api';
@@ -23,9 +23,10 @@ export class LessonComponent implements OnInit {
 	url: string;
 	insertSuccess: any;
 	enrollButton: boolean;
-	showDialog: boolean;
+	//showDialog: boolean;
 	dialogValue: string;
 	isSelectedContentEnrolled: boolean = false;
+	@Input('openModal') openModal : boolean
 
 	constructor(
 		private comService: CommunicationService,
@@ -140,7 +141,7 @@ export class LessonComponent implements OnInit {
 	enrolCourse(){
 		
 		if(this.currentSession.loggedUser == null) {
-			this.showDialog = true;
+			this.openModal = true;
 			this.dialogValue = 'Please register/ login first';
 			return;
 		} else if (this.currentSession.loggedUser != null) {
@@ -174,5 +175,9 @@ export class LessonComponent implements OnInit {
 		}
 		this.isSelectedContentEnrolled = false;
 		}
+	}
+	
+	closeModal() {
+		this.openModal = false;
 	}
 }
