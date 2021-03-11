@@ -75,7 +75,7 @@ export class HeaderComponent implements OnInit {
 		this.loggedUser = null;
 		//localStorage.removeItem('usersession');
 		
-		this.userSession = new UserSession();
+		this.userSession = new UserSession(); 
 		this.userSession.enrolledContents= null;
 		this.userSession.nextScreen = ('<app-home>');
 		this.comService.changeScreen(this.userSession );
@@ -84,6 +84,15 @@ export class HeaderComponent implements OnInit {
 	myCourses() {
 		this.userSession.nextScreen= '<app-enrolcourse>';
 		this.comService.changeScreen(this.userSession);
+	}
+	
+	fullStackJava() {
+		
+		if (this.userSession === undefined) {
+			this.userSession = new UserSession(); 
+		}
+		this.userSession.nextScreen='<app-fullstackjava>';
+		this.comService.changeScreen(this.userSession); 
 	}
 
 }
