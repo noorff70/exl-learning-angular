@@ -34,15 +34,12 @@
 		<button class="btn btn-outline-primary" type="submit" (click)="userLogin()">Login</button>
 	</div>
 	<div class="col-1 mt-2"  *ngIf="loggedUser != null">
-		<div class="row"><br></div>
 		<button class="btn btn-outline-primary" (click)="userLogoff()">Logoff</button>
 	</div>
 	 <div class="col-1 mt-2">
-	 	<div class="row"><br></div>
 		<p class="text-right font-bold" style="color:brown">{{loggedUser}}</p>
 	</div>
 	<div class="col-1 mt-2" *ngIf="loggedUser != null">
-		<div class="row"><br></div>
 		<input class="btn btn-outline-primary" type="submit" value="My Courses" (click)="myCourses()">
 	</div>
 </div>
