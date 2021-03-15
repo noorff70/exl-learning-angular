@@ -1,5 +1,5 @@
 <div class = "row mt-2">
-	<div class="col-2">
+	<div class="col-sm-2">
 		<span style="font-family:verdana; font-size: 2vw; color:red;">s</span>
 		<span style="font-family:verdana; font-size: 2vw; color:orange;">t</span>
 		<span style="font-family:verdana; font-size: 2vw; color:yello;">u</span>
@@ -10,7 +10,7 @@
 		<span style="font-family:verdana; font-size: 2vw; color:black;">d</span>
 		<!-- <img class="img-fluid" src="./assets/images/logo/cholosikhi.png">-->
 	</div>
-	<div class="col-2 mt-2">
+	<div class="col-sm-2 mt-2">
 		<div class="dropdown show">
   			<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     			Instructor-led Courses
@@ -22,24 +22,24 @@
   			</div>
 		</div>
 	</div>
-	<div class="col-3 mt-2">
+	<div class="col-sm-3 mt-2">
 		<div class ="row">
 			<input type="text" class="form-control" id="id_searchContent" aria-describedby="searchContent" [(ngModel)]="searchContent" placeholder="Search" >
 		</div>
 	</div>
-	<div class="col-1 mt-2">
+	<div class="col-sm-1 mt-2">
 		<button class="btn btn-outline-primary" type="submit" (click)="searchForContent()">Submit</button>
 	</div>
-	<div class="col-1 mt-2"  *ngIf="loggedUser == null">
+	<div class="col-sm-1 mt-2"  *ngIf="loggedUser == null">
 		<button class="btn btn-outline-primary" type="submit" (click)="userLogin()">Login</button>
 	</div>
-	<div class="col-1 mt-2"  *ngIf="loggedUser != null">
+	<div class="col-sm-1 mt-2"  *ngIf="loggedUser != null">
 		<button class="btn btn-outline-primary" (click)="userLogoff()">Logoff</button>
 	</div>
-	 <div class="col-1 mt-2">
+	 <div class="col-sm-1 mt-2">
 		<p class="text-right font-bold" style="color:brown">{{loggedUser}}</p>
 	</div>
-	<div class="col-1 mt-2" *ngIf="loggedUser != null">
+	<div class="col-sm-1 mt-2" *ngIf="loggedUser != null">
 		<input class="btn btn-outline-primary" type="submit" value="My Courses" (click)="myCourses()">
 	</div>
 </div>
