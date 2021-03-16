@@ -94,5 +94,14 @@ export class HeaderComponent implements OnInit {
 		this.userSession.nextScreen='<app-fullstackjava>';
 		this.comService.changeScreen(this.userSession); 
 	}
+	
+	webCourse() {
+		
+		if (this.userSession === undefined) {
+			this.userSession = new UserSession(); 
+		}
+		this.userSession.nextScreen='<app-webcourse>';
+		this.comService.changeScreen(this.userSession); 
+	}
 
 }

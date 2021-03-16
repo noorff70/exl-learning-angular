@@ -23,6 +23,7 @@ import { AboutComponent } from './components/about/about.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { EnrolcourseComponent } from './components/enrolcourse/enrolcourse.component';
 import { FullstackjavaComponent } from './components/instructor-led/fullstackjava/fullstackjava.component';
+import { WebcourseComponent } from './components/instructor-led/webcourse/webcourse.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { FullstackjavaComponent } from './components/instructor-led/fullstackjav
 	RegisterComponent,
 	AboutComponent,
 	EnrolcourseComponent,
-	FullstackjavaComponent
+	FullstackjavaComponent,
+	WebcourseComponent
   ],
   imports: [
 	BrowserModule,
